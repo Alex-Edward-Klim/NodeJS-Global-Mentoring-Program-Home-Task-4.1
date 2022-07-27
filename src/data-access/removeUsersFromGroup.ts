@@ -1,8 +1,8 @@
 import dataBase from './dataBase';
 
-import { Group, User } from '../models/index';
+import { Group } from '../models/index';
 
-const removeUsersFromGroup = async (groupId: any, userIds: any) => {
+const removeUsersFromGroup = async (groupId: any) => {
   const t = await dataBase.transaction();
 
   try {
@@ -12,16 +12,11 @@ const removeUsersFromGroup = async (groupId: any, userIds: any) => {
       },
     });
 
-    const users: any = await User.findAll({
-      where: {
-        id: userIds,
-      },
-    });
-
-    if (group && users.length > 0) {
-      const UsersRemovedToGroup = await group.removeUsers(users);
+    if (group) {
+      const usersToRemove = await group.getUsers();
+      const UsersRemovedFromGroup = await group.removeUsers(usersToRemove);
       await t.commit();
-      return UsersRemovedToGroup;
+      return UsersRemovedFromGroup;
     }
     throw new Error('Incorrect request data');
   } catch (err) {

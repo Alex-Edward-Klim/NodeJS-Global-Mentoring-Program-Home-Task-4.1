@@ -13,7 +13,7 @@ const groups_get_all = async (req: Request, res: Response) => {
 };
 
 const groups_get_group = async (req: Request, res: Response) => {
-  const { id } = req.params;
+  const { groupId: id } = req.params;
 
   const group = await groupService.getGroupById(id);
 
@@ -42,7 +42,7 @@ const groups_create_group = async (req: Request, res: Response) => {
 };
 
 const groups_update_group = async (req: Request, res: Response) => {
-  const { id } = req.params;
+  const { groupId: id } = req.params;
 
   const group = await groupService.getGroupById(id);
 
@@ -62,7 +62,7 @@ const groups_update_group = async (req: Request, res: Response) => {
 };
 
 const groups_delete_group = async (req: Request, res: Response) => {
-  const { id } = req.params;
+  const { groupId: id } = req.params;
 
   const groupDeletedStatus = await groupService.deleteGroup(id);
 

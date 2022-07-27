@@ -9,9 +9,6 @@ import morgan from 'morgan';
 import usersRoutes from './routes/users';
 import groupsRoutes from './routes/groups';
 
-import addUsersToGroupRouter from './routes/addUsersToGroup';
-import removeUsersFromGroupRouter from './routes/removeUsersFromGroup';
-
 import loginRouter from './routes/login';
 import authenticateUser from './middlewares/authenticateUser';
 
@@ -60,9 +57,6 @@ process.on('unhandledRejection', (reason) => {
 
 app.use('/api/users', authenticateUser, usersRoutes);
 app.use('/api/groups', authenticateUser, groupsRoutes);
-
-app.use('/api/addUsersToGroup', authenticateUser, addUsersToGroupRouter);
-app.use('/api/removeUsersFromGroup', authenticateUser, removeUsersFromGroupRouter);
 
 app.use('/api/login', loginRouter);
 
