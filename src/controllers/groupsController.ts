@@ -4,12 +4,7 @@ import groupService from '../services/groupService';
 
 const groups_get_all = async (req: Request, res: Response) => {
   const groups = await groupService.getAllGroups();
-
-  if (!groups) {
-    res.status(500).send('DataBase Error');
-  } else {
-    res.json(groups);
-  }
+  res.json(groups);
 };
 
 const groups_get_group = async (req: Request, res: Response) => {
@@ -20,7 +15,7 @@ const groups_get_group = async (req: Request, res: Response) => {
   if (group) {
     res.send(group);
   } else {
-    res.status(400).send('Group not found');
+    res.status(404).send('Group not found');
   }
 };
 
@@ -33,11 +28,7 @@ const groups_create_group = async (req: Request, res: Response) => {
     res.status(400).send('Group already exists');
   } else {
     const newGroup = await groupService.createNewGroup(req.body);
-    if (newGroup) {
-      res.json(newGroup);
-    } else {
-      res.status(500).send('DataBase Error');
-    }
+    res.json(newGroup);
   }
 };
 
@@ -57,7 +48,7 @@ const groups_update_group = async (req: Request, res: Response) => {
       res.send(updatedGroup);
     }
   } else {
-    res.status(400).send('Group not found');
+    res.status(404).send('Group not found');
   }
 };
 
@@ -68,10 +59,8 @@ const groups_delete_group = async (req: Request, res: Response) => {
 
   if (groupDeletedStatus === 1) {
     res.send('Group Deleted');
-  } else if (groupDeletedStatus === 0) {
-    res.status(400).send('Group not found');
   } else {
-    res.status(500).send('DataBase Error');
+    res.status(404).send('Group not found');
   }
 };
 

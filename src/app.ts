@@ -21,7 +21,7 @@ app.use(cors());
 app.use((req, res, next) => {
   express.json()(req, res, (err) => {
     if (err) {
-      return res.sendStatus(400);
+      return res.status(400).send('Incorrect JSON format');
     }
 
     return next();
